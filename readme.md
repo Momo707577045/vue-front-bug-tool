@@ -9,6 +9,7 @@
 - 引用 ```import FrontTool from '@/components/front-tool/front-tool'```
 - 注册 ```components: {FrontTool},```
 - 使用 ```<front-tool/>```
+
   ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/019.png)
 
 
@@ -22,6 +23,7 @@
 
 ### 修改配置文件
 - 修改LeanCloud的配置信息，打开front-tool.VUE，找到AV.init， 填入前面记录的 LeanCloud 的「App ID」和「App Key」。
+
   ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/020.png)
 
 - 修改对应各个环境的域名前缀。若全部都不命中，则自动设置为local本地环境。
