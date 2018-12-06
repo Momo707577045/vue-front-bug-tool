@@ -294,6 +294,7 @@ export default {
         // 监听加载完成，获取回复的报文
         realXHR.addEventListener('loadend', () => {
           ajaxData.response = realXHR.response
+          this.ajaxList.push(ajaxData)
         }, false)
         return realXHR
       }
