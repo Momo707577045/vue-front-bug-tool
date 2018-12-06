@@ -230,8 +230,8 @@ export default {
     },
 
     // 添加全局数据，在每个上报的数据中都有
-    clearGlobalData(data) {
-      this.globalData = Object.assign(this.globalData, data)
+    clearGlobalData() {
+      this.globalData = {}
     },
 
     // 添加自定义数据
