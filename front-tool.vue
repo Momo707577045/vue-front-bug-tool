@@ -1,5 +1,5 @@
 <!--前端工具栏-->
-<style lang="scss" scoped>
+<style scoped>
 .c-mask-box {
   position: fixed;
   top: 0;
@@ -7,27 +7,27 @@
   width: 100%;
   height: 100%;
   z-index: 999;
-  .mask {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    opacity: 0.6;
-    background-color: #000000;
-  }
-  .mask-white {
-    background-color: #ffffff;
-  }
-  .content-box {
-    position: fixed;
-    display: flex;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    align-items: center;
-    justify-content: center;
-  }
+}
+.c-mask-box .mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  background-color: #000000;
+}
+.c-mask-box .mask-white {
+  background-color: #ffffff;
+}
+.c-mask-box .content-box {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
 }
 .c-front-tool {
   display: inline-block;
@@ -35,56 +35,56 @@
   bottom: 20px;
   left: 20px;
   z-index: 999;
-  .control-box {
-    padding: 20px 0;
-    width: 450px;
-    height: 90%;
-    border-radius: 4px;
-    background-color: #eeeeee;
-    li {
-      margin: 0 auto 10px;
-      position: relative;
-      width: 300px;
-      padding: 14px 0;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-      border-radius: 4px;
-      background-color: #3D8AC7;
-    }
-    li:nth-last-child(1) {
-      background-color: #DC5350;
-    }
-    li:nth-last-child(2) {
-      background-color: #F66F2C;
-    }
-    li:nth-last-child(1) {
-      background-color: #DC5350;
-    }
-  }
-  .btn-entrance {
-    position: relative;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    opacity: 0.7;
-    background-color: #3D8AC7;
-    i {
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      height: 20px;
-      width: 20px;
-      border-radius: 50%;
-      border: 1px solid lightgray;
-      background-color: #ffffff;
-      background-repeat: round;
-      background-image: url(http://www.luckly-mjw.cn/baseSource/icon-cancel.png);
-    }
-  }
+}
+.c-front-tool .control-box {
+  padding: 20px 0;
+  width: 450px;
+  height: 90%;
+  border-radius: 4px;
+  background-color: #eeeeee;
+}
+.c-front-tool .control-box li {
+  margin: 0 auto 10px;
+  position: relative;
+  width: 300px;
+  padding: 14px 0;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #3D8AC7;
+}
+.c-front-tool .control-box li:nth-last-child(1) {
+  background-color: #DC5350;
+}
+.c-front-tool .control-box li:nth-last-child(2) {
+  background-color: #F66F2C;
+}
+.c-front-tool .control-box li:nth-last-child(1) {
+  background-color: #DC5350;
+}
+.c-front-tool .btn-entrance {
+  position: relative;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  opacity: 0.7;
+  background-color: #3D8AC7;
+}
+.c-front-tool .btn-entrance i {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  background-color: #ffffff;
+  background-repeat: round;
+  background-image: url(http://www.luckly-mjw.cn/baseSource/icon-cancel.png);
 }
 .c-tips {
   position: fixed;
