@@ -115,7 +115,6 @@
         <div class="control-box">
           <ul>
             <li @click="reportDate"> 数据上报 </li>
-            <!--<li @click="clearToken"> 清除token，重新登录 </li>-->
             <li @click="clearStorage"> 清除所有缓存数据 </li>
             <li v-for="(item, index) in menu" @click="item.callback" :key="index"> {{item.name}} </li>
             <li @click="showBox=false"> 关闭弹窗 </li>
