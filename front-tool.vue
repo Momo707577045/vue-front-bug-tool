@@ -115,7 +115,7 @@
         <div class="control-box">
           <ul>
             <li @click="reportDate"> 数据上报 </li>
-            <li @click="clearToken"> 清除token，重新登录 </li>
+            <!--<li @click="clearToken"> 清除token，重新登录 </li>-->
             <li @click="clearStorage"> 清除所有缓存数据 </li>
             <li v-for="(item, index) in menu" @click="item.callback" :key="index"> {{item.name}} </li>
             <li @click="showBox=false"> 关闭弹窗 </li>
@@ -196,6 +196,21 @@ export default {
   },
 
   methods: {
+    loadScript(url) {
+      return new Promise((resolve, reject) => {
+        let $script = document.createElement('script')
+        $script.src = url
+        $script.async = true
+        $script.addEventListener('error', () => {
+          reject()
+        })
+        $script.addEventListener('load', () => {
+          resolve()
+        })
+        document.body.appendChild($script)
+      })
+    },
+
 
     // 初始化，重写AJAX，往全局添加函数
     init() {
@@ -206,10 +221,12 @@ export default {
       this.$root.__proto__.$addGlobalData = this.addGlobalData.bind(this)
       this.$root.__proto__.$clearGlobalData = this.clearGlobalData.bind(this)
       window.$collectData = this.reportDate.bind(this)
-      if (!AV._config.applicationId) {
-        AV.init({
-          appId: '',
-          appKey: '',
+      if (!window.AV) {
+        this.loadScript('https://cdn1.lncld.net/static/js/av-min-1.2.1.js').then(() => {
+          AV.init({
+            appId: '',
+            appKey: '',
+          })
         })
       }
     },
