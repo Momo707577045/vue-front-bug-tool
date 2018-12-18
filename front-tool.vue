@@ -130,7 +130,7 @@
 
 <script>
 /* eslint-disable */
-import './av'
+// import './av'
 
 export default {
   props: {
