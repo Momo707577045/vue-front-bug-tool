@@ -135,6 +135,8 @@ import './av'
 export default {
   props: {
     menu: Array,
+    useInProd: Boolean, // 在生产环境也使用
+    ajaxHook: Function, // 外部请求检测钩子
   },
   data() {
     return {
@@ -158,7 +160,7 @@ export default {
         dev: '开发',
         test: '测试',
         pre: '预发布',
-        prod: '正式',
+        prod: '生产',
       }[value]
     },
   },
@@ -183,9 +185,9 @@ export default {
 
   created() {
     this.runtimeEnv = this.getRuntimeEnv()
-    if (this.runtimeEnv !== 'prod') {
+    if (this.runtimeEnv !== 'prod' || this.useInProd) {
       this.init()
-    } else { // 正式环境，将全局函数置空
+    } else { // 生产环境，将全局函数置空
       this.$root.__proto__.$addCustomData =
         this.$root.__proto__.$clearCustomData =
           this.$root.__proto__.$addGlobalData =
@@ -310,7 +312,12 @@ export default {
         // 监听加载完成，获取回复的报文
         realXHR.addEventListener('loadend', () => {
           ajaxData.response = realXHR.response
-          this.ajaxList.push(ajaxData)
+          if (ajaxData.request.url.indexOf('api.leancloud.cn') === -1) { // 不收集，不检测leanCloud的接口
+            this.ajaxList.push(ajaxData)
+            if (this.ajaxHook) { // 外部执行钩子
+              this.ajaxHook(ajaxData) && this.reportDate()
+            }
+          }
         }, false)
         return realXHR
       }
