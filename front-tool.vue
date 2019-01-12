@@ -299,8 +299,13 @@ export default {
         realXHR.send = (postData) => {
           ajaxData.request.timeout = realXHR.timeout
           ajaxData.request.responseType = realXHR.responseType
-          if (postData) {
-            ajaxData.request.data = typeof postData === 'string' ? this.getParams(`?${postData}`) : postData
+          if (ajaxData.request.method === 'POST' && postData) {
+            const { header } = ajaxData.request
+            if (header['Content-Type'].indexOf('application/json') > -1) {
+              ajaxData.request.data = JSON.parse(postData)
+            } else if (header['Content-Type'].indexOf('application/x-www-form-urlencoded') > -1) {
+              ajaxData.request.data = this.getParams(`?${postData}`)
+            }
           }
           try { // 防止timeout等报错，造成程序阻塞
             originSend.call(realXHR, postData)
