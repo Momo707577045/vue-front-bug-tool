@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  z-index: 9999;
 }
 .c-mask-box .mask {
   position: fixed;
@@ -14,9 +14,6 @@
   height: 100%;
   opacity: 0.6;
   background-color: #000000;
-}
-.c-mask-box .mask-white {
-  background-color: #ffffff;
 }
 .c-mask-box .content-box {
   position: fixed;
@@ -34,7 +31,7 @@
   position: fixed;
   bottom: 20px;
   left: 20px;
-  z-index: 999;
+  z-index: 9999;
 }
 .c-front-tool .control-box {
   padding: 20px 0;
@@ -48,7 +45,7 @@
   position: relative;
   width: 300px;
   padding: 14px 0;
-  color: white;
+  color: #FFFFFF;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
@@ -70,7 +67,7 @@
   padding: 10px 20px;
   font-size: 20px;
   font-weight: bold;
-  color: white;
+  color: #FFFFFF;
   opacity: 0.7;
   background-color: #3D8AC7;
 }
@@ -82,7 +79,7 @@
   width: 20px;
   border-radius: 50%;
   border: 1px solid lightgray;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   background-repeat: round;
   background-image: url(http://www.luckly-mjw.cn/baseSource/icon-cancel.png);
 }
@@ -108,15 +105,18 @@
 </style>
 
 <template>
-  <section class="c-front-tool" v-show="!isClose" v-if="runtimeEnv!=='prod'">
+  <section class="c-front-tool" v-show="!isClose" v-if="runtimeEnv !== 'prod'">
     <section class="c-mask-box" @dragstart="false" v-if="showBox">
       <div class="mask"></div>
       <div class="content-box" @click.self="showBox=false">
         <div class="control-box">
           <ul>
             <li @click="reportDate"> 数据上报 </li>
-            <li @click="clearStorage"> 清除所有缓存数据 </li>
-            <li v-for="(item, index) in menu" @click="item.callback" :key="index"> {{item.name}} </li>
+            <li @click="clearStorage"> 清除缓存数据 </li>
+            <li v-for="(item, index) in menu"
+                @click="item.callback"
+                :key="index"
+            > {{item.name}} </li>
             <li @click="showBox=false"> 关闭弹窗 </li>
             <li @click="isClose=true"> 关闭工具 </li>
           </ul>
@@ -130,7 +130,6 @@
 
 <script>
 /* eslint-disable */
-// import './av'
 
 export default {
   props: {
@@ -138,6 +137,7 @@ export default {
     useInProd: Boolean, // 在生产环境也使用
     ajaxHook: Function, // 外部请求检测钩子
   },
+
   data() {
     return {
       tips: '', // 提示文案
@@ -168,17 +168,25 @@ export default {
   watch: {
     // 刷新组件，即在路由变更时，清空记录内容
     $route() {
+      window.ftLogText = ''
       this.ajaxList = []
       this.clearCustomData() // 清空自定义数据
     },
 
+    // 打印提示信息
     tips(newValue) {
-      clearTimeout(this.tipsTimeout)
-      if (newValue) {
-        this.showTips = true
-        this.tipsTimeout = setTimeout(() => {
-          this.showTips = false
-        }, 2000)
+      this.runtimeEnv = this.getRuntimeEnv()
+      if (this.runtimeEnv !== 'prod') { // 非生成环境，打印数据
+        clearTimeout(this.tipsTimeout)
+        if (newValue) {
+          this.showTips = true
+          this.tipsTimeout = setTimeout(() => {
+            this.showTips = false
+          }, 2000)
+        }
+      } else { // 生成环境，打印数据
+        console.log(newValue)
+        window.ftLogText += `${newValue}\r\n`
       }
     },
   },
@@ -197,6 +205,8 @@ export default {
   },
 
   methods: {
+
+    // 加载JS文件
     loadScript(url) {
       return new Promise((resolve, reject) => {
         let $script = document.createElement('script')
@@ -211,7 +221,6 @@ export default {
         document.body.appendChild($script)
       })
     },
-
 
     // 初始化，重写AJAX，往全局添加函数
     init() {
@@ -317,7 +326,7 @@ export default {
         // 监听加载完成，获取回复的报文
         realXHR.addEventListener('loadend', () => {
           ajaxData.response = realXHR.response
-          if (ajaxData.request.url.indexOf('api.leancloud.cn') === -1) { // 不收集，不检测leanCloud的接口
+          if (ajaxData.request.url.indexOf('leancloud.cn') === -1) {
             this.ajaxList.push(ajaxData)
             if (this.ajaxHook) { // 外部执行钩子
               this.ajaxHook(ajaxData) && this.reportDate()
@@ -336,16 +345,16 @@ export default {
       setTimeout(() => location.reload(), 1500)
     },
 
-    // 清除登录信息
-    clearToken() {
-      this.isClose = true
-      localStorage.removeItem('token')
-      this.tips = 'token清除成功，即将重新加载'
-      setTimeout(() => location.reload(), 1500)
+    // 清除cookie信息
+    removeCookie(cookieName, path, domain) {
+      document.cookie = `${encodeURIComponent(cookieName)}=; expires=Thu, 01 Jan 1970 00:00:00 GMT${domain ? '; domain=' + domain : ''}${path ? '; path=' + path : ''}`
     },
 
     // 上报数据
     reportDate() {
+      if (!window.AV) {
+        return
+      }
       const bugClass = AV.Object.extend('bug')
       let bug = new bugClass()
       bug.set('env', this.runtimeEnv) // 当前环境
@@ -378,6 +387,7 @@ export default {
       return 'local'
     },
 
+    // 获取浏览器名
     getBrowserType() {
       const { userAgent } = window.navigator
       if (window.ActiveXObject || 'ActiveXObject' in window) { // IE
