@@ -13,6 +13,29 @@
   ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/019.png)
 
 
+### VUE 非集成化接入方式
+*脱离 webpack，不需要 babel 转码。降低使用成本*
+- 通过 「script」标签导入工具，```<script src="./front-tool.js"></script>```
+- 该 script 文件将在 「window」对象中挂载一个「frontTool」变量
+- 在 vue 主程序中，正常使用组件
+    ```
+    <div id="app">
+      <front-tool></front-tool>
+    </div>
+    </body>
+
+    <script src="./vue.js"></script>
+    <script src="./front-tool.js"></script>
+    <script>
+    new Vue({
+      el: '#app',
+      components: {
+        'frontTool': window.frontTool,
+      },
+    })
+    ```
+- 修改「front-tool.js」源码中的「App ID」和「App Key」
+
 ### [API介绍](https://raw.githubusercontent.com/Momo707577045/VUE-front-bug-tool/master/front-tool.VUE)
 - 【this.$addCustomData(Object)】 添加自定义数据，即在数据收集时，上报特定的自定义数据，通过key-value方式保存。
 - 【this.$clearCustomData()】 清除自定义数据，该方法将在路由变化时自动被调用，即自定义数据仅在当前路由有效，路由跳转后将自动清空。
