@@ -2,7 +2,7 @@
 
 # VUE组件使用说明
 *设置好LeanCloud，我们就可以使用信息收集的组件了*
-### 组件的载入
+### 组件的载入(front-tool.vue)
 - 按常规载入方式即可，[点击这里](https://github.com/Momo707577045/vue-front-bug-tool)，获取源码
 - 将代码文件夹放入项目中，例如这里放在components文件夹中
 - 在全部VUE中载入组件，如layout组件中
@@ -13,7 +13,7 @@
   ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/019.png)
 
 
-### VUE 非集成化接入方式
+### VUE 非集成化接入方式(front-tool.js)
 *脱离 webpack，不需要 babel 转码。降低使用成本*
 - 通过 「script」标签导入工具，```<script src="./front-tool.js"></script>```
 - 该 script 文件将在 「window」对象中挂载一个「frontTool」变量
@@ -41,6 +41,24 @@
  useInProd: false, // 在生产环境也使用
  ajaxHook: () => {}, // 外部请求检测钩子
 ```
+
+
+### 不依赖框架的纯 js 引用方式(front-tool-origin.js)
+ *脱离 vue 的束缚，不依赖任何技术框架*
+ - 通过 「script」标签导入工具即可，```<script src="./front-tool-origin.js"></script>```
+ - 修改「front-tool-origin.js」源码中的「App ID」和「App Key」
+ - 如果需要在不同页面中，使用不同的配置，可以在载入该 js 文件之前定义配置参数。工具将优先使用该配置进行加载。（具体配置项请看源码实例）
+ ```
+  // 合并配置项
+  function mergeConf() {
+    runtimeEnvObj = window.$runtimeEnvObj || runtimeEnvObj
+    avConf = window.$avConf || avConf
+    menuList = window.$menuList || menuList
+    ajaxHook = window.$ajaxHook || ajaxHook
+  }
+ ```
+
+
 
 ### [API介绍](https://raw.githubusercontent.com/Momo707577045/VUE-front-bug-tool/master/front-tool.VUE)
 - 【this.$addCustomData(Object)】 添加自定义数据，即在数据收集时，上报特定的自定义数据，通过key-value方式保存。
