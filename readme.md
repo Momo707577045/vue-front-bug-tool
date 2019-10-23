@@ -10,7 +10,7 @@
 - 注册 ```components: {FrontTool},```
 - 使用 ```<front-tool/>```
 
-  ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/019.png)
+  ![使用配图](http://upyun.luckly-mjw.cn/Assets/bugSystem/imgs/019.png)
 
 
 ### VUE 非集成化接入方式(front-tool.js)
@@ -71,7 +71,7 @@
 ### 修改配置文件
 - 修改LeanCloud的配置信息，打开front-tool.VUE，找到AV.init， 填入前面记录的 LeanCloud 的「App ID」和「App Key」。
 
-  ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/020.png)
+  ![使用配图](http://upyun.luckly-mjw.cn/Assets/bugSystem/imgs/020.png)
 
 - 修改对应各个环境的域名前缀。若全部都不命中，则自动设置为local本地环境。
   ```
@@ -82,4 +82,4 @@
     prod: '.xxx.com', // 正式环境域名前缀
   }
   ```
-  ![使用配图](http://momo-project.b0.upaiyun.com/Assets/bugSystem/imgs/021.png)
+  ![使用配图](http://upyun.luckly-mjw.cn/Assets/bugSystem/imgs/021.png)
