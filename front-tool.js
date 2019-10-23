@@ -26,12 +26,6 @@ window.frontTool = {
 </div>
 `,
 
-  props: {
-    menu: Array,
-    useInProd: Boolean, // 在生产环境也使用
-    ajaxHook: Function, // 外部请求检测钩子
-  },
-
   data() {
     return {
       tips: '', // 提示文案
@@ -44,6 +38,9 @@ window.frontTool = {
       showTips: false, // 是否显示控制面板
       showBox: false, // 是否显示控制面板
       isClose: false, // 是否关闭工具
+      menu: [],
+      useInProd: false, // 在生产环境也使用
+      ajaxHook: () => {}, // 外部请求检测钩子
       styleStr: `<style>
 .c-mask-box {
   position: fixed;

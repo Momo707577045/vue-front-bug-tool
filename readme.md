@@ -35,6 +35,12 @@
     })
     ```
 - 修改「front-tool.js」源码中的「App ID」和「App Key」
+- 【注意】由于非集成化的特点，为实现代码复用，减少配置。以下三项配置将从「props」迁移到「data」中，故只能通过修改源码进行功能扩展。
+```
+ menu: [],
+ useInProd: false, // 在生产环境也使用
+ ajaxHook: () => {}, // 外部请求检测钩子
+```
 
 ### [API介绍](https://raw.githubusercontent.com/Momo707577045/VUE-front-bug-tool/master/front-tool.VUE)
 - 【this.$addCustomData(Object)】 添加自定义数据，即在数据收集时，上报特定的自定义数据，通过key-value方式保存。
