@@ -1,0 +1,102 @@
+.c-mask-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
+  .c-mask-box .mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background-color: #000000;
+  }
+  .c-mask-box .content-box {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+  }
+  .c-front-tool {
+    display: inline-block;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    z-index: 9999;
+  }
+  .c-front-tool .control-box {
+    padding: 20px 0;
+    width: 450px;
+    height: 90%;
+    border-radius: 4px;
+    background-color: #eeeeee;
+  }
+  .c-front-tool .control-box > view>view {
+    margin: 0 auto 10px;
+    position: relative;
+    width: 300px;
+    padding: 14px 0;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #3D8AC7;
+  }
+  .c-front-tool .control-box > view>view:nth-last-child(1) {
+    background-color: #DC5350;
+  }
+  .c-front-tool .control-box > view>view:nth-last-child(2) {
+    background-color: #F66F2C;
+  }
+  .c-front-tool .control-box > view>view:nth-last-child(1) {
+    background-color: #DC5350;
+  }
+  .c-front-tool .btn-entrance {
+    position: relative;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    opacity: 0.7;
+    background-color: #3D8AC7;
+  }
+  .c-front-tool .btn-entrance i {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    background-color: #FFFFFF;
+    background-repeat: round;
+    background-image: url(http://www.luckly-mjw.cn/baseSource/icon-cancel.png);
+  }
+  .c-tips {
+    position: fixed;
+    padding: 0 14px;
+    top: -100rpx;
+    left: 50%;
+    height: 40px;
+    color: #69C6D2;
+    font-size: 20px;
+    line-height: 38px;
+    border-radius: 2px;
+    display: inline-block;
+    transition: 0.5s all;
+    transform: translate(-50%);
+    background-color: #275E71;
+    border: 2px solid #57C4CE;
+  }
+  .c-tips--show {
+    top: 10px;
+  }

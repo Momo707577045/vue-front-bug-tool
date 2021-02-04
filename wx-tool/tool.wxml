@@ -1,0 +1,21 @@
+<view class="c-front-tool" wx:if="{{runtimeEnv !== 'production' && !isClose}}">
+    <view class="c-mask-box" wx:if="{{ showBox }}">
+      <view class="mask"></view>
+      <view class="content-box" catchtap="showBoxFun">
+        <view class="control-box" catchtap="emptyFun">
+          <view>
+            <view catchtap="reportDate"> 数据上报 </view>
+            <view catchtap="clearStorage"> 清除缓存数据 </view>
+            <view wx:for="{{menu}}"  wx:key="index"
+            > 
+              <view catchtap="myCallback" data-name="{{item.name}}">{{item.name}}</view>
+            </view>
+            <view catchtap="showBoxFun"> 关闭弹窗 </view>
+            <view catchtap="isCloseFun"> 关闭工具 </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="c-tips {{showTips ? 'c-tips--show' : ''}}">{{tips}}</view>
+    <view class="btn-entrance" catchtap="showBoxFun">{{runtimeEnv}}环境</view>
+  </view>
